@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+:root {
+  --orange: #f97316;
+  --orange-dark: #ea580c;
+  --blue: #0b1f3a;
+  --blue-mid: #12355b;
+  --cream: #fff7ed;
+  --wa-green: #25d366;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: "Segoe UI", "Noto Sans", system-ui, sans-serif;
+  background: linear-gradient(165deg, #fff7ed 0%, #eef2ff 45%, #dbeafe 100%);
+  color: #0b1f3a;
+}
+
+button {
+  font: inherit;
+}
+
+.score-bar {
+  height: 8px;
+  border-radius: 999px;
+  background: #e2e8f0;
+  overflow: hidden;
+}
+
+.score-bar > span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #f97316, #0ea5e9);
+}

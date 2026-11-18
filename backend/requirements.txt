@@ -1,0 +1,16 @@
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+sqlalchemy==2.0.36
+python-dotenv==1.0.1
+python-multipart==0.0.20
+httpx==0.28.1
+numpy==2.2.1
+sentence-transformers==3.3.1
+groq==0.13.1
+pydantic==2.10.4
+pydantic-settings==2.7.0
+aiofiles==24.1.0
+edge-tts==6.1.19
+pytest==8.3.4
+tqdm==4.67.1
+twilio==9.4.0
