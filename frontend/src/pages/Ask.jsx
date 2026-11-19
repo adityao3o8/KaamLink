@@ -7,13 +7,20 @@ import { useRecorder } from '../hooks/useRecorder'
 
 export default function Ask({ onBack }) {
   const { recording, start, stop, error: micError } = useRecorder()
-  const [q, setQ] = useState('What should I do if wages are unpaid?')
+  const [q, setQ] = useState('How do I find work on KaamLink?')
   const [langHint, setLangHint] = useState('auto')
   const [answerLang, setAnswerLang] = useState('English')
   const [demoMode, setDemoMode] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [result, setResult] = useState(null)
+  const suggestions = [
+    'How do I find work on KaamLink?',
+    'How do I hire workers?',
+    'What if wages are unpaid?',
+    'How do I browse available masons?',
+    'Site safety tips?',
+  ]
 
   async function askText() {
     setLoading(true)
@@ -59,7 +66,7 @@ export default function Ask({ onBack }) {
     <div className="mx-auto max-w-lg px-4 py-6 pb-16">
       <button type="button" onClick={onBack} className="text-sm font-semibold text-orange-600">← Home</button>
       <h1 className="mt-2 text-3xl font-bold text-[#0b1f3a]">Ask KaamLink</h1>
-      <p className="mt-1 text-sm text-slate-600">RAG over sample worker docs · Groq Llama answers</p>
+      <p className="mt-1 text-sm text-slate-600">KaamLink docs + general AI chat · ask anything</p>
 
       <div className="mt-4 space-y-3 rounded-2xl border border-slate-200 bg-white/80 p-3">
         <div className="text-xs font-semibold uppercase text-slate-500">Voice language</div>
@@ -77,7 +84,19 @@ export default function Ask({ onBack }) {
         <MicButton recording={recording} onToggle={handleMic} disabled={loading} />
       </div>
 
-      <textarea value={q} onChange={(e) => setQ(e.target.value)} rows={3} className="mt-4 w-full rounded-xl border border-slate-300 bg-white p-3 text-sm" />
+      <div className="mt-4 flex flex-wrap gap-2">
+        {suggestions.map((s) => (
+          <button
+            key={s}
+            type="button"
+            onClick={() => setQ(s)}
+            className="rounded-full border border-slate-300 bg-white px-3 py-1 text-[11px] font-semibold text-slate-700"
+          >
+            {s}
+          </button>
+        ))}
+      </div>
+      <textarea value={q} onChange={(e) => setQ(e.target.value)} rows={3} className="mt-3 w-full rounded-xl border border-slate-300 bg-white p-3 text-sm" />
       <button type="button" onClick={askText} disabled={loading} className="mt-2 w-full rounded-xl bg-orange-500 py-3 font-semibold text-white disabled:opacity-50">
         {loading ? 'Thinking…' : 'Ask'}
       </button>

@@ -5,6 +5,7 @@ import Worker from './pages/Worker'
 import Metrics from './pages/Metrics'
 import Ask from './pages/Ask'
 import Admin from './pages/Admin'
+import BrowseWorkers from './pages/BrowseWorkers'
 
 export default function App() {
   const [page, setPage] = useState('home')
@@ -19,6 +20,7 @@ export default function App() {
           </button>
           <nav className="flex flex-wrap justify-end gap-2 text-[11px] font-semibold text-slate-600">
             <button type="button" onClick={() => setPage('contractor')}>Contractor</button>
+            <button type="button" onClick={() => setPage('browse')}>Browse</button>
             <button type="button" onClick={() => setPage('worker')}>Worker</button>
             <button type="button" onClick={() => setPage('ask')}>Ask</button>
             <button type="button" onClick={() => setPage('metrics')}>Metrics</button>
@@ -28,7 +30,8 @@ export default function App() {
       </header>
 
       {page === 'home' && <Home onNavigate={setPage} />}
-      {page === 'contractor' && <Contractor onBack={() => setPage('home')} />}
+      {page === 'contractor' && <Contractor onBack={() => setPage('home')} onBrowse={() => setPage('browse')} />}
+      {page === 'browse' && <BrowseWorkers onBack={() => setPage('home')} />}
       {page === 'worker' && <Worker onBack={() => setPage('home')} />}
       {page === 'ask' && <Ask onBack={() => setPage('home')} />}
       {page === 'metrics' && <Metrics onBack={() => setPage('home')} />}

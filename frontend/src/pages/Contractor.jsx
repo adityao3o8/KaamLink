@@ -29,7 +29,7 @@ function ScoreBars({ score }) {
   )
 }
 
-export default function Contractor({ onBack }) {
+export default function Contractor({ onBack, onBrowse }) {
   const { recording, error: micError, start, stop } = useRecorder()
   const [text, setText] = useState('Kal 3 mason chahiye, Chengalpattu mein, 800 per day')
   const [langHint, setLangHint] = useState('auto')
@@ -213,6 +213,15 @@ export default function Contractor({ onBack }) {
       <button type="button" onClick={onBack} className="text-sm font-semibold text-orange-600">← Home</button>
       <h1 className="mt-2 text-3xl font-bold text-[#0b1f3a]">Need workers</h1>
       <p className="mt-1 text-sm text-slate-600">Groq Whisper + Llama · voice-first Hinglish / Tanglish</p>
+      {onBrowse && (
+        <button
+          type="button"
+          onClick={onBrowse}
+          className="mt-3 w-full rounded-xl border border-[#0b1f3a] bg-white py-3 text-sm font-bold text-[#0b1f3a]"
+        >
+          Browse all available masons / workers →
+        </button>
+      )}
 
       <div className="mt-4 space-y-3 rounded-2xl border border-slate-200 bg-white/80 p-3">
         <div className="text-xs font-semibold uppercase text-slate-500">STT language</div>

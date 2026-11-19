@@ -117,17 +117,39 @@ async def confirm_worker(body: ConfirmWorkerRequest, db: Session = Depends(get_d
 
 
 @router.get("")
-def list_workers(db: Session = Depends(get_db)):
-    workers = db.query(Worker).order_by(Worker.id).all()
-    return [
-        {
-            "id": w.id,
-            "name": w.name,
-            "skill": w.skill,
-            "area": w.area,
-            "reliability": w.reliability,
-            "expected_wage": w.expected_wage,
-            "languages": w.languages_list(),
-        }
-        for w in workers
-    ]
+def list_workers(
+    skill: str | None = None,
+    area: str | None = None,
+    available_on: str | None = None,
+    db: Session = Depends(get_db),
+):
+    """List workers for contractors. Optional filters: skill, area, available_on (YYYY-MM-DD)."""
+    q = db.query(Worker)
+    if skill:
+        q = q.filter(Worker.skill == skill.lower().strip())
+    workers = q.order_by(Worker.reliability.desc(), Worker.id).all()
+    results = []
+    for w in workers:
+        avail = w.availability_list()
+        if available_on and avail and available_on not in avail:
+            continue
+        if area and area.lower() not in (w.area or "").lower():
+            continue
+        phone = w.phone or ""
+        masked = phone[:2] + "******" + phone[-2:] if len(phone) >= 4 else "****"
+        results.append(
+            {
+                "id": w.id,
+                "name": w.name,
+                "skill": w.skill,
+                "area": w.area,
+                "experience_years": w.experience_years,
+                "reliability": w.reliability,
+                "expected_wage": w.expected_wage,
+                "languages": w.languages_list(),
+                "availability": avail[:7],
+                "phone_masked": masked,
+                "available_now": (not avail) or (available_on in avail if available_on else True),
+            }
+        )
+    return {"count": len(results), "workers": results}

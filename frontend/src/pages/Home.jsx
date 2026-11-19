@@ -14,6 +14,11 @@ export default function Home({ onNavigate }) {
         <div className="mt-1 text-sm text-blue-100">Contractor — record a job & wave-alert shortlist</div>
       </button>
 
+      <button type="button" onClick={() => onNavigate('browse')} className="rounded-2xl border-2 border-[#0b1f3a] bg-white px-6 py-5 text-left shadow-sm">
+        <div className="text-xl font-bold text-[#0b1f3a]">Browse available workers</div>
+        <div className="mt-1 text-sm text-slate-600">See all masons, painters, plumbers… by skill & date</div>
+      </button>
+
       <button type="button" onClick={() => onNavigate('worker')} className="rounded-2xl bg-orange-500 px-6 py-8 text-left text-white shadow-md">
         <div className="text-2xl font-bold">I need work</div>
         <div className="mt-1 text-sm text-orange-50">Worker — onboard with a voice note</div>
